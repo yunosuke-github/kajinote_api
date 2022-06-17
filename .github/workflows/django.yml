@@ -41,14 +41,14 @@ jobs:
         pip install -r requirements.txt
     - name: Setup Database
       run: |
+        sudo mysqld --initialize
         sudo systemctl start mysql.service
-        sudo systemctl status mysql.service
-        sudo journalctl -xe
     - name: Run Tests
       run: |
         python manage.py test -v 3
   slack-noti:
     runs-on: ubuntu-latest
+    needs: build
     steps:
       # Check out theis repo
       - uses: actions/checkout@v2
@@ -80,4 +80,4 @@ jobs:
             }
         env:
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_INCOMING_WEBHOOK_URL }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
