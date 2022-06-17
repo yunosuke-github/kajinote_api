@@ -41,13 +41,12 @@ jobs:
         pip install -r requirements.txt
     - name: Setup Database
       run: |
-        sudo rm -rf /var/lib/mysql/*
-        sudo mysqld --initialize
-        sudo systemctl start mysql.service
+        sudo touch /tmp/mysql.sock
     - name: Run Tests
       run: |
         python manage.py test -v 3
   slack-noti:
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     needs: build
     steps:
