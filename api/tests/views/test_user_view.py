@@ -37,4 +37,3 @@ class UserViewTests(TestCase):
         self.assertEqual(len(response.data), 2)
         for user in response.data:
             self.assertNotEqual(user['name'], 'test3')
-        self.assertTrue(False)
