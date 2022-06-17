@@ -41,6 +41,7 @@ jobs:
         pip install -r requirements.txt
     - name: Setup Database
       run: |
+        sudo systemctl enable mysql.service
         sudo systemctl start mysql.service
     - name: Run Tests
       run: |
@@ -51,13 +52,13 @@ jobs:
       with:
         payload: |
           {
-            "text": ":github: ビルド結果: ${{ job.status }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+            "text": "ビルド結果: ${{ job.status }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
             "blocks": [
               {
                 "type": "section",
                 "text": {
                   "type": "mrkdwn",
-                  "text": ":github: ビルド結果: ${{ job.status }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                  "text": "ビルド結果: ${{ job.status }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
                 }
               },
               {
