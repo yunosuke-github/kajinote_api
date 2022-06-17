@@ -41,6 +41,7 @@ jobs:
         pip install -r requirements.txt
     - name: Setup Database
       run: |
+        sudo rm -rf /var/lib/mysql/*
         sudo mysqld --initialize
         sudo systemctl start mysql.service
     - name: Run Tests
