@@ -15,7 +15,6 @@ jobs:
           - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: root_pass
-          MYSQL_DATABASE: test_kajinote
           MYSQL_USER: test
           MYSQL_PASSWORD: test
         options: >-
