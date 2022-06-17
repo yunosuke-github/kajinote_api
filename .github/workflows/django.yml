@@ -10,7 +10,7 @@ jobs:
   build:
     services:
       mysql:
-        image: mysql:5.7
+        image: mysql:8.0
         ports:
           - 3306:3306
         env:
@@ -41,10 +41,11 @@ jobs:
         pip install -r requirements.txt
     - name: Setup Database
       run: |
-        sudo systemctl stop mysql.service
-        sudo rm -f /var/run/mysqld/mysqld.sock
-        sudo rm -f /tmp/mysql.sock
-        sudo systemctl start mysql.service
+        sudo mysqld --initialize
+        sudo mkdir /var/lib/mysql-files
+        sudo chown mysql:mysql /var/lib/mysql-files
+        sudo chown -R mysql:mysql /var/lib/mysql
+        sudo systemctl restart mysql.service
     - name: Run Tests
       run: |
         python manage.py test -v 3
