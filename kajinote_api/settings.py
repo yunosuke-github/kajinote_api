@@ -81,6 +81,8 @@ DATABASES = {
         'NAME': 'kajinote',
         'USER': 'root',
         'PASSWORD': 'root_pass',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
         'TEST': {
             'NAME': 'test_kajinote',
             'USER': 'test',
