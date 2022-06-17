@@ -26,14 +26,15 @@ class UserViewTests(TestCase):
         self.assertEqual(len(response.data), 3)
 
     def test_get_active_user(self):
-            view = UserView.as_view({'post': 'get'})
-            data = {
-                'selector': {
-                    'deleted': 0
-                }
+        view = UserView.as_view({'post': 'get'})
+        data = {
+            'selector': {
+                'deleted': 0
             }
-            request = self.factory.post('http://localhost:8000/api/users/get/', data=data, format='json')
-            response = view(request)
-            self.assertEqual(len(response.data), 2)
-            for user in response.data:
-                self.assertNotEqual(user['name'], 'test3')
+        }
+        request = self.factory.post('http://localhost:8000/api/users/get/', data=data, format='json')
+        response = view(request)
+        self.assertEqual(len(response.data), 2)
+        for user in response.data:
+            self.assertNotEqual(user['name'], 'test3')
+        self.assertTrue(False)

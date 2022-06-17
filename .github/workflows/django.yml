@@ -45,6 +45,10 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py test -v 3
+    - id: check
+      if: ${{ always() }}
+      run: echo "::set-output name=message::Build ${{ (job.status == 'success' && '✅') || '❌' }}"
+
   slack-noti:
     if: ${{ always() }}
     runs-on: ubuntu-latest
