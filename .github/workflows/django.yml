@@ -41,7 +41,10 @@ jobs:
         pip install -r requirements.txt
     - name: Setup Database
       run: |
-        sudo touch /tmp/mysql.sock
+        mysql.server restart
+        sudo rm -f /var/run/mysqld/mysqld.sock
+        sudo rm -f /tmp/mysql.sock
+        sudo /etc/init.d/mysql start
     - name: Run Tests
       run: |
         python manage.py test -v 3
