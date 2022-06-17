@@ -41,7 +41,7 @@ jobs:
         pip install -r requirements.txt
     - name: Setup Database
       run: |
-        sudo systemctl enable mysql.service
+        sudo chown mysql:mysql /var/lib/mysql/mysql_upgrade_info
         sudo systemctl start mysql.service
     - name: Run Tests
       run: |
