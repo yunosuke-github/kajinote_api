@@ -7,7 +7,7 @@ class BaseView:
     def get_selector(self, request, model_class):
         selector = {}
         if 'selector' not in request.data.keys():
-            return selector
+            return selector, []
         selector = request.data['selector']
         selector_validator = SelectorValidator(model_class)
         errors = selector_validator.validate(selector)

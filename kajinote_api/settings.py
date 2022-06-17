@@ -81,6 +81,9 @@ DATABASES = {
         'NAME': 'kajinote',
         'USER': 'root',
         'PASSWORD': 'root_pass',
+        'TEST': {
+            'NAME': 'test_kajinote'
+        }
     }
 }
 
