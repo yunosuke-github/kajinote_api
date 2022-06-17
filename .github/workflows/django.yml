@@ -41,7 +41,7 @@ jobs:
         pip install -r requirements.txt
     - name: Setup Database
       run: |
-        sudo /etc/init.d/mysql start
+        sudo systemctl start mysql.service
     - name: Run Tests
       run: |
         python manage.py test -v 3
