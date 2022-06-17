@@ -82,7 +82,9 @@ DATABASES = {
         'USER': 'root',
         'PASSWORD': 'root_pass',
         'TEST': {
-            'NAME': 'test_kajinote'
+            'NAME': 'test_kajinote',
+            'USER': 'test',
+            'PASSWORD': 'test',
         }
     }
 }

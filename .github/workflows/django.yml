@@ -15,8 +15,8 @@ jobs:
           - 3306:3306
         env:
           MYSQL_ROOT_PASSWORD: root_pass
-          MYSQL_USER: db_user
-          MYSQL_PASSWORD: db_pass
+          MYSQL_USER: test
+          MYSQL_PASSWORD: test
         options: >-
           --health-cmd "mysqladmin ping"
           --health-interval 10s
@@ -27,7 +27,7 @@ jobs:
     strategy:
       max-parallel: 4
       matrix:
-        python-version: [3.7, 3.8, 3.9]
+        python-version: [3.8]
 
     steps:
     - uses: actions/checkout@v3
