@@ -1,0 +1,8 @@
+from enum import Enum
+
+
+class ErrorCode(Enum):
+
+    UNSPECIFIED_VALUE = 'UNSPECIFIED_VALUE'
+    DATA_NONE = 'DATA_NONE'
+    MUTATE_VALIDATE_ERORR = 'MUTATE_VALIDATE_ERORR'
