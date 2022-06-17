@@ -41,7 +41,7 @@ jobs:
         pip install -r requirements.txt
     - name: Setup Database
       run: |
-        mysql.server restart
+        sudo /etc/init.d/mysql stop
         sudo rm -f /var/run/mysqld/mysqld.sock
         sudo rm -f /tmp/mysql.sock
         sudo /etc/init.d/mysql start
@@ -61,13 +61,13 @@ jobs:
         with:
           payload: |
             {
-              "text": "ビルド結果: ${{ job.status }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
+              "text": "ビルド結果: ${{ needs.build.outputs.done }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}",
               "blocks": [
                 {
                   "type": "section",
                   "text": {
                     "type": "mrkdwn",
-                    "text": "ビルド結果: ${{ job.status }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                    "text": "ビルド結果: ${{ needs.build.outputs.done }}\n\n${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
                   }
                 },
                 {
