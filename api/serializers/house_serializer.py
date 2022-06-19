@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
 
+from api.models.house_user_model import HouseUserModel
+
+from ..enums.house_user_status import HouseUserStatus
 from ..models.user_model import UserModel
 from ..models.house_model import HouseModel
 from ..serializers.user_serializer import UserSerializer
@@ -37,6 +40,13 @@ class HouseSerializer(serializers.ModelSerializer):
             raise ValidationError('create_user_id does not exists.')
 
         house = HouseModel.objects.create(**validate_data)
+        # 管理者としてhouse_user追加
+        HouseUserModel.objects.create(**{
+            'user_id': house.create_user_id,
+            'house_id': house.id,
+            'status': HouseUserStatus.LIVE.id,
+            'admin_flg': 1
+            })
         return HouseSerializer(house).data
 
     def update(self, validate_data):
