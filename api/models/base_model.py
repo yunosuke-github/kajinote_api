@@ -7,7 +7,7 @@ class BaseModel(models.Model):
     class Meta:
         abstract = True
 
-    created_at = models.DateTimeField(default=timezone.now())
+    created_at = models.DateTimeField(default=timezone.now)
     created_by = models.CharField(max_length=100)
     updated_at = models.DateTimeField(auto_now=True)
     updated_by = models.CharField(max_length=100)

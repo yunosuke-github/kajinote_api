@@ -5,6 +5,7 @@ from rest_framework import status
 from rest_framework.test import APIRequestFactory
 from api.models.user_model import UserModel
 from api.models.house_model import HouseModel
+from api.models.house_user_model import HouseUserModel
 
 from api.views.house_view import HouseView
 
@@ -104,6 +105,11 @@ class HouseViewTests(TestCase):
         }
         request = self.factory.post('http://localhost:8000/api/houses/add/', data=data, format='json')
         response = view(request)
+        house_users = HouseUserModel.objects.filter(house_id=response.data['id'])
+        self.assertEqual(len(house_users), 1)
+        self.assertEqual(house_users[0].user_id, 1)
+        self.assertEqual(house_users[0].status, 2)
+        self.assertEqual(house_users[0].admin_flg, 1)
         self.assertEqual(response.data['name'], 'house4')
         self.assertEqual(response.data['description'], 'description4')
         self.assertEqual(response.data['create_user']['id'], 1)
