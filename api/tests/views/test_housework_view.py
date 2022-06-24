@@ -7,7 +7,7 @@ from api.models.housework_model import HouseworkModel
 from api.views.housework_view import HouseworkView
 
 
-class HouseViewTests(TestCase):
+class HouseworkViewTests(TestCase):
 
     def setUp(self):
         self.factory = APIRequestFactory()
