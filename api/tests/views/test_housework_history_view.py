@@ -62,7 +62,8 @@ class HouseworkHistoryViewTests(TestCase):
             'data': {
                 'id': 1,
                 'housework_id': 2,
-                'date': '2022-05-31'
+                'date': '2022-05-31',
+                'approve_flg': 1
             }
         }
         request = self.factory.post('http://localhost:8000/api/housework_histories/set/', data=data, format='json')
@@ -70,6 +71,21 @@ class HouseworkHistoryViewTests(TestCase):
         self.assertEqual(response.data['housework']['id'], 2)
         self.assertEqual(response.data['point'], 2)
         self.assertEqual(response.data['date'], '2022-05-31')
+        self.assertEqual(response.data['approve_flg'], 1)
+
+    def test_set_housework_history_approve_flg_exception(self):
+        view = HouseworkHistoryView.as_view({'post': 'set'})
+        data = {
+            'data': {
+                'id': 1,
+                'housework_id': 2,
+                'date': '2022-05-31',
+                'approve_flg': 2
+            }
+        }
+        request = self.factory.post('http://localhost:8000/api/housework_histories/set/', data=data, format='json')
+        response = view(request)
+        self.assertEqual(response.data['error'], 'MUTATE_VALIDATE_ERORR')
 
     def test_add_housework_history(self):
         view = HouseworkHistoryView.as_view({'post': 'add'})

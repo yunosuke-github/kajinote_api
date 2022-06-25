@@ -80,5 +80,9 @@ class HouseworkHistorySerializer(serializers.ModelSerializer):
             housework = HouseworkModel.objects.get(id=validate_data['housework_id'], deleted=0)
             housework_history.housework_id = housework.id
             housework_history.point = housework.point
+        if 'approve_flg' in validate_data.keys():
+            if validate_data['approve_flg'] not in [0, 1]:
+                raise ValidationError('Specify 0 or 1 for approve_flg.')
+            housework_history.approve_flg = validate_data['approve_flg']
         housework_history.save()
         return HouseworkHistorySerializer(housework_history).data
